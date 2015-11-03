@@ -12,6 +12,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import warnings
+
 try:
     from requests.packages.urllib3.exceptions import InsecurePlatformWarning
 except ImportError:
@@ -27,3 +29,20 @@ except ImportError:
         from urllib3.exceptions import InsecureRequestWarning
     except ImportError:
         InsecureRequestWarning = None
+
+try:
+        from requests.packages.urllib3.exceptions import SubjectAltNameWarning
+except ImportError:
+    try:
+        from urllib3.exceptions import SubjectAltNameWarning
+    except ImportError:
+        SubjectAltNameWarning = None
+
+
+def squelch_warnings(insecure_requests=True):
+    if SubjectAltNameWarning:
+        warnings.filterwarnings('ignore', category=SubjectAltNameWarning)
+    if InsecurePlatformWarning:
+        warnings.filterwarnings('ignore', category=InsecurePlatformWarning)
+    if insecure_requests and InsecureRequestWarning):
+        warnings.filterwarnings('ignore', category=InsecureRequestWarning)
