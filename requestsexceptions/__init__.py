@@ -31,7 +31,7 @@ except ImportError:
         InsecureRequestWarning = None
 
 try:
-        from requests.packages.urllib3.exceptions import SubjectAltNameWarning
+    from requests.packages.urllib3.exceptions import SubjectAltNameWarning
 except ImportError:
     try:
         from urllib3.exceptions import SubjectAltNameWarning
@@ -44,5 +44,5 @@ def squelch_warnings(insecure_requests=True):
         warnings.filterwarnings('ignore', category=SubjectAltNameWarning)
     if InsecurePlatformWarning:
         warnings.filterwarnings('ignore', category=InsecurePlatformWarning)
-    if insecure_requests and InsecureRequestWarning):
+    if insecure_requests and InsecureRequestWarning:
         warnings.filterwarnings('ignore', category=InsecureRequestWarning)
